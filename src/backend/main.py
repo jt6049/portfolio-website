@@ -179,7 +179,7 @@ def add_contact():
 def get_project_by_id():
     try:
         id = request.args.get("id")
-        # SQL query
+        # SQL quer
         query = "SELECT imageUrl, title, body FROM projects WHERE id=%s;"
 
         g.cursor.execute(query, [id])
