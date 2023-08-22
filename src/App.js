@@ -1,22 +1,20 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/footer";
+import About from "./components/About";
 import Contact from "./components/Contact";
-import WriteRecommendation from "./components/WriteRecommendation";
+import Footer from "./components/Footer";
+import Navbar from "./components/navbar";
+import ProjectSection from "./components/ProjectSection";
+import RecommendationStack from "./components/RecommendationStack";
+import SkillsStack from "./components/SkillsStack";
+import Title from "./components/Title";
+import WriteRecommendations from "./components/WriteRecommendations";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProjectPage from "./components/ProjectPage";
-import HomePage from "./components/HomePage";
-import NotFound from "./components/NotFound";
-
 import AddProject from "./components/AddProject";
-
 import { Provider } from "./components/context";
 import AllProjects from "./components/AllProjects";
-
 import ScrollToTop from "./components/ScrollToTop";
-import Test from "./components/Test";
-
 function App() {
   return (
     <Provider>
@@ -24,21 +22,25 @@ function App() {
         <ScrollToTop />
         <Navbar />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/contact" component={Contact} />
-          <Route
-            exact
-            path="/write-a-recommendation"
-            component={WriteRecommendation}
-          />
-          <Route exact path="/allprojects" component={AllProjects} />
-          
+          <Route exact path="/">
+            <Title
+              name="Jayesh Talreja"
+              leadtext="I am a freelancer from India"
+            />
+            <RecommendationStack />
+            <SkillsStack />
+            <ProjectSection />
+            <About />
+          </Route>
+          <Route exact path="/contact">
+            <Contact />
+          </Route>
+          <Route exact path="/Write-a-Recommendation">
+            <WriteRecommendations />
+          </Route>
+          <Route exact path="/AllProjects" component={AllProjects} />
           <Route exact path="/project/add" component={AddProject} />
-          
           <Route exact path="/project/:id" component={ProjectPage} />
-          <Route exact path="/test" component ={Test}/>
-          
-          <Route component={NotFound} />
         </Switch>
         <Footer />
       </BrowserRouter>

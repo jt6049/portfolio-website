@@ -1,114 +1,98 @@
 import React, { Component } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import ReactMarkdown from "react-markdown";
 import { Consumer } from "./context";
 import { v4 as uuid } from "uuid";
-import axios from"axios";
-
+import axios from "axios";
 class AddProject extends Component {
   state = {
-    imageUrl: "",
+    url: "",
     title: "",
     excerpt: "",
     body: "",
-    submitMessage: "",
-    submitMessageTextColor: "",
+    submitmessage: "",
+    submitMessagetextColour: "",
   };
-
   onChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
+  onSubmit = async (statechangehandler, event) => {
+    event.preventDefault();
+    const newProject = {
+      id: uuid(),
+      title: this.state.title,
+      imageurl: this.state.url,
+      excerpt: this.state.excerpt,
+      body: this.state.body,
+    };
+    const responses = await axios.post(
+      "http://127.0.0.1:9000/api/project",
+      newProject
+    );
+    const isSuccessful = responses.data.isSuccessful;
+    if (isSuccessful) {
+      this.setState({
+        submitMessage: `Published successfully, enjoy`,
+        submitMessagetextColour: "text-info",
+      });
+    }
 
+    statechangehandler("ADD_PROJECT", newProject);
+  };
   onBodyChange = (value) => {
     this.setState({
       body: value,
     });
   };
-
-  onSubmit = async(handler, event) => {
-    event.preventDefault();
-
-    const newProject = {
-      id: uuid(),
-      imageUrl: this.state.imageUrl,
-      title: this.state.title,
-      excerpt: this.state.excerpt,
-      body: this.state.body,
-    };
-
-    const response = await axios.post("http://127.0.0.1:9000/api/projects",newProject);
-
-    const isSuccessful=response.data.isSuccessful;
-
-    if (isSuccessful) {
-      this.setState({
-        submitMessage: `Project published successfully`,
-        submitMessageTextColor: "text-info",
-      });
-    } else {
-      this.setState({
-        submitMessage: "Publish failed :(",
-        submitMessageTextColor: "text-danger",
-      });
-    }
-
-   
-
-    handler("ADD_PROJECT", newProject);
-  };
-
   render() {
     return (
       <Consumer>
         {(value) => {
           const {
-            imageUrl,
+            url,
             title,
             body,
             submitMessage,
-            submitMessageTextColor,
+            submitMessagetextColour,
           } = this.state;
-          const { handler } = value;
-
+          const { statechangehandler } = value;
           return (
-            <div className="container-fluid my-5 py-5">
-              <h1 className="text-center my-5 font-weight-light">
-                Add <span className="text-info">Project</span>
-              </h1>
-              <div className="row px-3 px-lg-5">
-                <div className="col-12 col-lg-6 px-lg-5">
-                  <form onSubmit={this.onSubmit.bind(this, handler)}>
+            <div className="container-fluid py-5 my-5">
+              <div className="text-center my-5 font-weight-light">
+                <h1>
+                  Add <span className="text-info">Project</span>
+                </h1>
+              </div>
+              <div className="row py-3 px-lg-5">
+                <div className="col-12 col-lg-6">
+                  <form onSubmit={this.onSubmit.bind(this, statechangehandler)}>
                     <div className="form-group">
-                      <label htmlFor="imageUrl">Featured Image Url *</label>
+                      <label htmlFor="url"> Featured image Url * </label>
                       <input
                         type="text"
-                        name="imageUrl"
-                        id="imageUrl"
+                        name="url"
                         className="form-control"
                         onChange={this.onChange}
                         required
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="title">Title *</label>
+                      <label htmlFor="title"> Title * </label>
                       <input
                         type="text"
                         name="title"
-                        id="title"
                         className="form-control"
                         onChange={this.onChange}
                         required
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="excerpt">Excerpt *</label>
+                      <label htmlFor="excerpt"> excerpt * </label>
                       <input
                         type="text"
                         name="excerpt"
-                        id="excerpt"
                         className="form-control"
                         onChange={this.onChange}
                         required
@@ -122,24 +106,28 @@ class AddProject extends Component {
                     />
                     <button
                       type="submit"
-                      className="btn btn-dark btn-block my-5"
+                      className="bn btn-dark float-right "
                       style={{ backgroundColor: "black" }}
                     >
                       Publish
                     </button>
                   </form>
-                  <div className="text-center">
-                    <h5 className={submitMessageTextColor}>{submitMessage}</h5>
+                  <div className="py-5 text-center">
+                    <h5>
+                      <span className={submitMessagetextColour}>
+                        {submitMessage}
+                      </span>
+                    </h5>
                   </div>
                 </div>
-                <div className="col-12 col-lg-6 markdown">
+                <div className="col-12 col-lg-6">
                   <div className="justify-content-center">
-                    <img src={imageUrl} alt={title} />
+                    <img src={url} alt={title} className="img-fluid" />
                   </div>
-                  <h1 className="font-weight-light text-center my-5">
-                    {title}
-                  </h1>
-                  <ReactMarkdown source={body} />
+                  <div className="text-center">
+                    <h1>{title}</h1>
+                  </div>
+                  <div>{body}</div>
                 </div>
               </div>
             </div>

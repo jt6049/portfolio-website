@@ -1,8 +1,7 @@
 import React from "react";
-import ProjectCard from "./ProjectCard";
-import { Consumer } from "./context";
 import { Link } from "react-router-dom";
-
+import { Consumer } from "./context";
+import ProjectCard from "./ProjectCard";
 function ProjectSection() {
   return (
     <Consumer>
@@ -22,10 +21,10 @@ function ProjectSection() {
               ))}
             </div>
             <div className="my-5">
-              <Link to="/allprojects" className="text-dark text-right">
+              <Link to="/AllProjects" className="text-dark text-right">
                 <h5>
                   See my projects
-                  <i className="fas fa-arrow-right align-middle pl-1"></i>
+                  <i className="fas fa-arrow-right align-middle"></i>
                 </h5>
               </Link>
             </div>
