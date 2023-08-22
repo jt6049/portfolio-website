@@ -96,7 +96,7 @@ def get_projects():
                 "imageUrl":project[1],
                 "title":project[2],
                 "excerpt":project[3],
-               # "body":project[4],
+                "body":project[4],
                 
             }
             results.append(project_obj)
@@ -180,7 +180,7 @@ def get_project_by_id():
     try:
         id = request.args.get("id")
         # SQL quer
-        query = "SELECT imageUrl, title, body FROM projects WHERE id=%s;"
+        query = "SELECT id,imageUrl, title, excerpt FROM projects WHERE id=%s;"
 
         g.cursor.execute(query, [id])
 

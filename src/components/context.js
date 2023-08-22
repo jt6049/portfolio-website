@@ -92,35 +92,35 @@ export class Provider extends Component{
             },
             
         ],
-         projects:[
-        // [{
-        //     id:1,
-        //     title:"Project 1",
-        //     imageUrl: down1,
-        //     excerpt:"This is  my project about....",
-        //     body:"Body 1",
-        // },
-        // {
-        //     id:2,
-        //     title:"Project 2",
-        //     imageUrl:down2,
-        //     excerpt:"This is  my project about....",
-        //     body:"Body 2",
-        // },
-        // {
-        //     id:3,
-        //     title:"Project 3",
-        //     imageUrl:down3,
-        //     excerpt:"This is  my project about....",
-        //     body:"Body 3",
-        // },
-        // {
-        //     id:3,
-        //     title:"Project 3",
-        //     imageUrl:down3,
-        //     excerpt:"This is  my project about....",
-        //     body:"Body 4",
-        // },
+         projects:
+        [{
+            id:1,
+            title:"Project 1",
+            imageUrl: down1,
+            excerpt:"This is  my project about....",
+            body:"Body 1",
+        },
+        {
+            id:2,
+            title:"Project 2",
+            imageUrl:down2,
+            excerpt:"This is  my project about....",
+            body:"Body 2",
+        },
+        {
+            id:3,
+            title:"Project 3",
+            imageUrl:down3,
+            excerpt:"This is  my project about....",
+            body:"Body 3",
+        },
+        {
+            id:3,
+            title:"Project 3",
+            imageUrl:down3,
+            excerpt:"This is  my project about....",
+            body:"Body 4",
+        },
     ],
     
     };
